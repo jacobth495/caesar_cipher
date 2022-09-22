@@ -1,4 +1,3 @@
-#get it to ignore spaces
 #get it to ignore punctuation
 
 def caesar_cipher(string, x)
@@ -6,19 +5,15 @@ def caesar_cipher(string, x)
   string_to_lower = string.downcase
   #splits into individual letters
   split_string = string_to_lower.split("")
-  #Loops through each letter converts to ord number unless empty space
+  #Loops through each letter converts to ord number
   string_to_int = split_string.map do |letter|
-    if letter == ' '
-      next
-    else
       letter = letter.ord
       letter 
-    end
   end
-  #Subtracts the ord number from x unless nil
+  #Subtracts the ord number from x
   string_to_ord = string_to_int.map do |ord|
-    if ord == nil
-      next
+    if ord == 32
+      ord
     else
     ord = (ord - x)
     ord
@@ -26,7 +21,8 @@ def caesar_cipher(string, x)
   end
   #Keeps within a-z range
   string_to_ord.each_with_index do |ord, index|
-    if ord == nil
+    if ord == 32
+      ord
       next
     elsif ord < 97
       ord = 96 - ord
@@ -37,14 +33,11 @@ def caesar_cipher(string, x)
   end
   #Converts ord numbers back into letters
   ord_to_letters = string_to_ord.map do |letter|
-    if letter == nil
-      next
-    end
     letter = letter.chr
     letter
   end
   #joins letters back together
-  letters_joined = ord_to_letters.join(nil)
+  letters_joined = ord_to_letters.join
   #returns output
   puts letters_joined
 end
