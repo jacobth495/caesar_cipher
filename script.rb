@@ -2,6 +2,7 @@
 
 def caesar_cipher(string, x)
   #converts to lowercase
+  ignored = (1..64)
   string_to_lower = string.downcase
   #splits into individual letters
   split_string = string_to_lower.split("")
@@ -12,16 +13,18 @@ def caesar_cipher(string, x)
   end
   #Subtracts the ord number from x
   string_to_ord = string_to_int.map do |ord|
-    if ord == 32
+    ignore = ignored.any? {|n| n == ord}
+    if ignore == true
       ord
     else
-    ord = (ord - x)
-    ord
+      ord -= x
     end
+    ord
   end
   #Keeps within a-z range
   string_to_ord.each_with_index do |ord, index|
-    if ord == 32
+    ignore = ignored.any? {|n| n == ord}
+    if ignore == true
       ord
       next
     elsif ord < 97
@@ -42,5 +45,5 @@ def caesar_cipher(string, x)
   puts letters_joined
 end
 
-caesar_cipher("abc defg", 1)
+caesar_cipher("abc defg!!!", 1)
 #abcdefghijklmnopqrstuzwxyz
