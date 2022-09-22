@@ -1,16 +1,14 @@
-#get it to ignore punctuation
-
+#get it to return uppercase if uppercase
 def caesar_cipher(string, x)
-  #converts to lowercase
   ignored = (1..64)
-  string_to_lower = string.downcase
-  #splits into individual letters
-  split_string = string_to_lower.split("")
-  #Loops through each letter converts to ord number
-  string_to_int = split_string.map do |letter|
+  def string_ord(string)
+    split_string = string.split("")
+    string_to_int = split_string.map do |letter|
       letter = letter.ord
       letter 
+    end
   end
+  string_to_int = string_ord(string)
   #Subtracts the ord number from x
   string_to_ord = string_to_int.map do |ord|
     ignore = ignored.any? {|n| n == ord}
@@ -45,5 +43,5 @@ def caesar_cipher(string, x)
   puts letters_joined
 end
 
-caesar_cipher("abc defg!!!", 1)
+caesar_cipher("Abc defg!!!", 1)
 #abcdefghijklmnopqrstuzwxyz
