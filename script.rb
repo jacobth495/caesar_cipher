@@ -1,6 +1,7 @@
-#get it to return uppercase if uppercase
 def caesar_cipher(string, x)
+  #Range of ASCII puncuations to ignore
   ignored = (1..64)
+  #Method to return ASCII letter codes from string
   def string_ord(string)
     split_string = string.split("")
     string_to_int = split_string.map do |letter|
@@ -8,8 +9,9 @@ def caesar_cipher(string, x)
       letter 
     end
   end
+  #String converted to ASCII code
+  #Checks for punctuation and subtracts the value of x
   string_to_int = string_ord(string)
-  #Subtracts the ord number from x
   string_to_ord = string_to_int.map do |ord|
     ignore = ignored.any? {|n| n == ord}
     if ignore == true
@@ -19,20 +21,27 @@ def caesar_cipher(string, x)
     end
     ord
   end
-  #Keeps within a-z range
+  #Keeps within A-Z & a-z range
   string_to_ord.each_with_index do |ord, index|
-    ignore = ignored.any? {|n| n == ord}
+    ignore = ignored.any? {|n| n == (ord + x)}
     if ignore == true
       ord
-      next
     elsif ord < 97
-      ord = 96 - ord
-      ord = 122 - ord
-      ord
+      if ord < 65
+        ord = 64 - ord
+        ord = 90 - ord
+        ord
+      elsif ord < (97 - x)
+        ord
+      else
+        ord = 96 - ord
+        ord = 122 - ord
+        ord
+      end
     end
     string_to_ord[index] = ord
   end
-  #Converts ord numbers back into letters
+  #Converts ASCII codes back into letters
   ord_to_letters = string_to_ord.map do |letter|
     letter = letter.chr
     letter
@@ -43,5 +52,5 @@ def caesar_cipher(string, x)
   puts letters_joined
 end
 
-caesar_cipher("Abc defg!!!", 1)
+caesar_cipher("What the Dog DoinG!!", 1)
 #abcdefghijklmnopqrstuzwxyz
